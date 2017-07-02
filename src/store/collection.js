@@ -1,3 +1,4 @@
+import extractYoutubeId from 'lib/extractYoutubeId'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -6,10 +7,13 @@ export const NEW_ITEM = 'NEW_ITEM'
 // ------------------------------------
 // Actions
 // ------------------------------------
-var idCounter = 0
-export function addItem (youtubeId, note) {
+var idCounter = 3
+export function addItem (collectionId, youtubeLink, note) {
+  const youtubeId = extractYoutubeId(youttubeLink)
   const id = idCounter ++
   idCounter = id
+  // TODO: check collectionID
+
   return {
     type    : NEW_ITEM,
     payload : { id: id, note: note, youtubeId: youtubeId}
@@ -28,6 +32,7 @@ export function addItem (youtubeId, note) {
 // ------------------------------------
 const initialState = {
   title: 'Short Yoga Lessons',
+  id: 1234,
   description: 'A collection of short (max. 20 min) yoga workouts to choose from for your daily practice.',
   tags: ['easy', 'no music', 'advanced', 'music'],
   items: [
@@ -44,7 +49,7 @@ export default function collectionReducer (state = initialState, action) {
 }
 
 const createItemInCollection = (state, newItem) => {
-  const newItems = state.items.concat([newItem])
+  const newItems = state.items.concat([{ ...newItem, tags: [] }])
   return { ...state, items: newItems }
 }
 

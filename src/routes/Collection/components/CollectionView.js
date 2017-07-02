@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import EntryList from './EntryList'
+import YoutubeItemForm from './YoutubeItemForm'
 
 const TagList = ({ tags }) =>{
   const TAGS = tags.map( (tag) => {
@@ -15,22 +16,30 @@ const TagList = ({ tags }) =>{
   )
 }
 
-const NewItem = ({collection}) => {
-  return <div>Form for new items goes here</div>
+const NewItem = ({ collection, add }) => {
+
+  return (
+    <form>
+      <input type='text' placeholder='Paste youtube link here'/><br />
+      <input type='text' placeholder='add a note' />
+      <button type='submit' onClick={() => add(collection.id)}>Add Video</button>
+    </form>
+  )
 }
 
-export const CollectionView = ({ collection }) => (
+export const CollectionView = ({ collection, addYoutubeItem }) => (
     <div>
       <h1>{collection.title}</h1>
       <p>{collection.description}</p>
       <TagList tags={collection.tags} />
       <EntryList items={collection.items} />
-      <NewItem collection={collection} />
+      <YoutubeItemForm add={addYoutubeItem} collectionId={collection.id}/>
     </div>
 )
 
 CollectionView.propTypes = {
-  collection: PropTypes.object
+  collection: PropTypes.object,
+  addYoutubeItem: PropTypes.func
 }
 
 export default CollectionView
