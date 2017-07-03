@@ -9,7 +9,7 @@ export const NEW_ITEM = 'NEW_ITEM'
 // ------------------------------------
 var idCounter = 3
 export function addItem (collectionId, youtubeLink, note) {
-  const youtubeId = extractYoutubeId(youttubeLink)
+  const youtubeId = extractYoutubeId(youtubeLink)
   const id = idCounter ++
   idCounter = id
   // TODO: check collectionID
